@@ -30,7 +30,7 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
         super.init()
     }
     
-    init(sourceView:UIView, menuItems:Array<String>){
+    init(sourceView:UIView, menuItems:Array<String>) {
         super.init()
         originView = sourceView
         sideBarTableViewController.tableData = menuItems
@@ -46,9 +46,7 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
         let hideGestureRecognizer:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(SideBar.handleSwipe(_:)))
         hideGestureRecognizer.direction = UISwipeGestureRecognizerDirection.left
         originView.addGestureRecognizer(hideGestureRecognizer)
-        
     }
-    
     
     func setupSideBar(){
         
@@ -74,24 +72,21 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
         sideBarTableViewController.tableView.reloadData()
         
         sideBarContainerView.addSubview(sideBarTableViewController.tableView)
-        
     }
     
-    
-    func handleSwipe(_ recognizer:UISwipeGestureRecognizer){
-        if recognizer.direction == UISwipeGestureRecognizerDirection.left{
+    func handleSwipe(_ recognizer:UISwipeGestureRecognizer) {
+        
+        if recognizer.direction == UISwipeGestureRecognizerDirection.left {
             showSideBar(false)
             delegate?.sideBarWillClose?()
-            
         }else{
             showSideBar(true)
             delegate?.sideBarWillOpen?()
         }
-        
     }
     
-    
-    func showSideBar(_ shouldOpen:Bool){
+    func showSideBar(_ shouldOpen:Bool) {
+        
         animator.removeAllBehaviors()
         isSideBarOpen = shouldOpen
         
@@ -116,15 +111,9 @@ class SideBar: NSObject, SideBarTableViewControllerDelegate {
         let sideBarBehavior:UIDynamicItemBehavior = UIDynamicItemBehavior(items: [sideBarContainerView])
         sideBarBehavior.elasticity = 0.3
         animator.addBehavior(sideBarBehavior)
-        
     }
-    
     
     func sideBarControlDidSelectRow(_ indexPath: IndexPath) {
         delegate?.sideBarDidSelectButtonAtIndex(indexPath.row)
     }
-    
-     
-    
-    
 }

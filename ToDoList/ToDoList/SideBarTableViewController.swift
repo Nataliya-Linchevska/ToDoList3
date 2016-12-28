@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SideBarTableViewControllerDelegate{
+protocol SideBarTableViewControllerDelegate {
     func sideBarControlDidSelectRow(_ indexPath:IndexPath)
 }
 

@@ -51,44 +51,41 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
        
     // Видалення по свайпу
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
             FileHelper.arrayOfTasks.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath as IndexPath], with: .fade)
+            
         }
     }
     
     // Редагування по тапу
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let controller = storyboard?.instantiateViewController(withIdentifier: "EditView") as! AdditionViewController
         controller.index = indexPath.row
         self.navigationController?.pushViewController(controller, animated: true)
+        
     }
     
     @IBAction func btnActionMenu(_ sender: UIBarButtonItem) {
+        
         let alert = UIAlertController(title: "Sorted by:", message: "", preferredStyle: UIAlertControllerStyle.alert)
         
         // Сортування по назві
         let nameAction = UIAlertAction(title: "Name", style: UIAlertActionStyle.default) {
-            (ACTION) in
-            FileHelper.arrayOfTasks.sort(by: { (product1, product2) -> Bool in
-                product1.name < product2.name
-            })
+            (ACTION) in FileHelper.arrayOfTasks.sort(by: { (product1, product2) -> Bool in product1.name < product2.name})
             self.taskList.reloadData()
         }
         
         // Сортування по даті
         let dataAction = UIAlertAction(title: "Data", style: UIAlertActionStyle.default) {
-            (ACTION) in
-            FileHelper.arrayOfTasks.sort(by: { (product1, product2) -> Bool in
-                product1.data.timeIntervalSince1970 < product2.data.timeIntervalSince1970
-            })
+            (ACTION) in FileHelper.arrayOfTasks.sort(by: { (product1, product2) -> Bool in product1.data.timeIntervalSince1970 < product2.data.timeIntervalSince1970 })
             self.taskList.reloadData()
         }
         
         // Відміна
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
-            (ACTION) in
-        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {(ACTION) in}
         
         alert.addAction(nameAction)
         alert.addAction(dataAction)
@@ -98,6 +95,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func sideBarDidSelectButtonAtIndex(_ index: Int) {
+        
         if index == 0 {
             self.navigationController?.popToRootViewController(animated: true)
         } else if index == 1 {
