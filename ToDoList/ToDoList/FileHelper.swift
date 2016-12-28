@@ -10,5 +10,6 @@ import Foundation
 class FileHelper {
     
     static var arrayOfTasks = [TaskModel]()
+    static var arrayOfItemsSideBar = ["List", "Information"]
     
 }

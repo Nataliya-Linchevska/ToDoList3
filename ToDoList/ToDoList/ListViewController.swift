@@ -16,7 +16,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sideBar = SideBar(sourceView: self.view, menuItems: ["List", "Information"])
+        sideBar = SideBar(sourceView: self.view, menuItems: FileHelper.arrayOfItemsSideBar)
         sideBar.delegate = self
     }
     
@@ -98,10 +98,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func sideBarDidSelectButtonAtIndex(_ index: Int) {
-        if index == 0{
-            print("1")
-        } else if index == 1{
-            print("2")
+        if index == 0 {
+            self.navigationController?.popToRootViewController(animated: true)
+        } else if index == 1 {
+            let controller = storyboard?.instantiateViewController(withIdentifier: "copyrightView")
+            self.navigationController?.pushViewController(controller!, animated: true)
         }
     }
 

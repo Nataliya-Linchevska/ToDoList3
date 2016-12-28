@@ -8,8 +8,9 @@
 
 import UIKit
 
-class AdditionViewController: UIViewController {
+class AdditionViewController: UIViewController, SideBarDelegate {
     
+    var sideBar: SideBar = SideBar()
     var index: Int?
     
     @IBOutlet weak var tvEnterInformation: UITextView!
@@ -21,6 +22,8 @@ class AdditionViewController: UIViewController {
             tvEnterInformation.text = FileHelper.arrayOfTasks[index!].name
             switchDone.setOn(FileHelper.arrayOfTasks[index!].checked, animated: false)
         }
+        sideBar = SideBar(sourceView: self.view, menuItems: FileHelper.arrayOfItemsSideBar)
+        sideBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,6 +43,16 @@ class AdditionViewController: UIViewController {
         tvEnterInformation.text = ""
         switchDone.isOn = true
     }
+    
+    func sideBarDidSelectButtonAtIndex(_ index: Int) {
+        if index == 0{
+            self.navigationController?.popToRootViewController(animated: true)
+        } else if index == 1{
+            let controller = storyboard?.instantiateViewController(withIdentifier: "copyrightView")
+            self.navigationController?.pushViewController(controller!, animated: true)
+        }
+    }
+
     
 
 }
